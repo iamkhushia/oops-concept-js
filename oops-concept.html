@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Details</title>
+    <style>
+
+        /* 1 */
+        .person-details {
+            margin-bottom: 20px;
+        }
+
+        /*  2 */
+
+        .account-details {
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+
+
+<body> 
+
+    <!-- 1 -->
+    <h1>Person Details</h1>
+    <div id="person1" class="person-details"></div>
+    <div id="person2" class="person-details"></div>
+
+    <!-- 2 -->
+
+    <h1>Bank Account Operations</h1>
+    <div id="account-details" class="account-details"></div>
+
+
+    <!-- ============= (1) ================ -->
+
+    <script>
+        class Person {
+            constructor(name, age, country) {
+                this.name = name;
+                this.age = age;
+                this.country = country;
+            }
+
+            displayDetails() {
+                return `Name: ${this.name}<br>Age: ${this.age}<br>Country: ${this.country}`;
+            }
+        }
+
+        const person1 = new Person('khushi', 24, 'Netharlenads');
+        const person2 = new Person('ashish', 27, 'IND');
+
+        const person1Div = document.getElementById('person1').innerHTML= `<strong>Person-1 Details:</strong><br>${person1.displayDetails()}`;
+        const person2Div = document.getElementById('person2').innerHTML=`<strong>Person-2 Details:</strong><br>${person2.displayDetails()}`;
+
+
+    </script>
+
+    <!-- ============== (2) ================= -->
+
+
+    <script>
+        class BankAccount {
+            constructor(accountNumber, balance) {
+                this.accountNumber = accountNumber;
+                this.balance = balance;
+            }
+
+            deposit(amount) {
+                this.balance += amount;
+                return amount;
+            }
+
+            withdraw(amount) {
+                if (this.balance >= amount) {
+                    this.balance -= amount;
+                    return amount;
+                } else {
+                    return "Insufficient balance";
+                }
+            }
+
+            getAccountDetails() {
+                return {
+                    accountNumber: this.accountNumber,
+                    balance: this.balance
+                };
+            }
+        }
+        const account = new BankAccount('2121212003', 1500);
+
+        const deposited = account.deposit(5000);
+        const withdrawn = account.withdraw(4000);
+        const wantToWithdraw = account.withdraw(800);
+
+        
+        const details = account.getAccountDetails();
+
+        const accountDiv = document.getElementById('account-details');
+        accountDiv.innerHTML = `
+            A/c No.: ${details.accountNumber}<br>
+            Opening Balance: ${1500}<br>
+            Deposited: ${deposited}<br>
+            Withdrawn: ${withdrawn}<br>
+            Account Balance: ${details.balance}<br>
+            Want to withdraw: 1800<br>
+            ${wantToWithdraw === "Insufficient balance" ? wantToWithdraw : `Account Balance: ${details.balance}`}
+        `;
+    </script>
+
+
+</body>
+</html>
